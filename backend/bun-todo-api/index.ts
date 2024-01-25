@@ -8,7 +8,9 @@ const app = await build({
     reusePort: true,
     error: (err) => {
       console.error(err);
-      return status(err.message, 500);
+      const response = status(err.message, 500);
+      response.headers.set('Access-Control-Allow-Origin', '*');
+      return response;
     }
   }
 });

@@ -5,13 +5,20 @@ import { Input } from "./input";
 
 import { TOGGLE_ITEM, REMOVE_ITEM, UPDATE_ITEM } from "../constants";
 
-export const Item = memo(function Item({ todo, dispatch, index }) {
+export const Item = memo(function Item({ todo, mutate, index }) {
     const [isWritable, setIsWritable] = useState(false);
     const { title, completed, id } = todo;
 
-    const toggleItem = useCallback(() => dispatch({ type: TOGGLE_ITEM, payload: { id } }), [dispatch]);
-    const removeItem = useCallback(() => dispatch({ type: REMOVE_ITEM, payload: { id } }), [dispatch]);
-    const updateItem = useCallback((id, title) => dispatch({ type: UPDATE_ITEM, payload: { id, title } }), [dispatch]);
+    const toggleItem = useCallback(() => {
+        // TODO: dispatch({ type: TOGGLE_ITEM, payload: { id } }), [dispatch]
+    });
+    const removeItem = useCallback(async () => {
+        await fetch(`http://localhost:3000/api/items/${id}`, { method: "DELETE" });
+        mutate((prev) => prev.filter((todo) => todo.id !== id), false);
+    });
+    const updateItem = useCallback((id, title) => {
+        // TODO dispatch({ type: UPDATE_ITEM, payload: { id, title } }), [dispatch]
+    });
 
     const handleDoubleClick = useCallback(() => {
         setIsWritable(true);

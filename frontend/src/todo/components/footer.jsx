@@ -4,12 +4,14 @@ import classnames from "classnames";
 
 import { REMOVE_COMPLETED_ITEMS } from "../constants";
 
-export function Footer({ todos, dispatch }) {
+export function Footer({ todos, mutate }) {
     const { pathname: route } = useLocation();
 
     const activeTodos = useMemo(() => todos.filter((todo) => !todo.completed), [todos]);
 
-    const removeCompleted = useCallback(() => dispatch({ type: REMOVE_COMPLETED_ITEMS }), [dispatch]);
+    const removeCompleted = useCallback(() => {
+        // TODO:  dispatch({ type: REMOVE_COMPLETED_ITEMS }), [dispatch]
+    });
 
     // prettier-ignore
     if (todos.length === 0)

@@ -6,7 +6,7 @@ import classnames from "classnames";
 
 import { TOGGLE_ALL } from "../constants";
 
-export function Main({ todos, dispatch }) {
+export function Main({ todos, mutate }) {
     const { pathname: route } = useLocation();
 
     const visibleTodos = useMemo(
@@ -23,7 +23,9 @@ export function Main({ todos, dispatch }) {
         [todos, route]
     );
 
-    const toggleAll = useCallback((e) => dispatch({ type: TOGGLE_ALL, payload: { completed: e.target.checked } }), [dispatch]);
+    const toggleAll = useCallback((e) => {
+        // TODO dispatch({ type: TOGGLE_ALL, payload: { completed: e.target.checked } }), [dispatch]
+    });
 
     return (
         <main className="main" data-testid="main">
@@ -37,7 +39,7 @@ export function Main({ todos, dispatch }) {
             ) : null}
             <ul className={classnames("todo-list")} data-testid="todo-list">
                 {visibleTodos.map((todo, index) => (
-                    <Item todo={todo} key={todo.id} dispatch={dispatch} index={index} />
+                    <Item todo={todo} key={todo.id} mutate={mutate} index={index} />
                 ))}
             </ul>
         </main>
