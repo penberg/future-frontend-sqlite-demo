@@ -7,7 +7,7 @@ import { todoReducer } from "./reducer";
 
 import "./app.css";
 
-export async function App() {
+export function App() {
     const [todos, dispatch] = useReducer(todoReducer, []);
 
     return (
