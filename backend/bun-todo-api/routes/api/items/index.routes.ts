@@ -1,4 +1,5 @@
-import { json } from '@stricjs/app/send';
+import { json, plug } from '@stricjs/app/send';
+import { cors } from '@stricjs/utils';
 import { routes } from '@stricjs/app';
 import { drizzle } from 'drizzle-orm/libsql';
 import { eq } from 'drizzle-orm';
@@ -31,18 +32,17 @@ const safeJsonParse = <T>(str: string) => {
 };
 
 export default routes()
-  .get('/', async () => {
+  .plug(cors, plug)
+  .get('/', async ctx => {
     const items = await getItems();
-    return json(items);
+    ctx.body = JSON.stringify(items);
   })
   .post('/', async (ctx) => {
     const body = await ctx.req.text();
     const item = safeJsonParse<InsertItem>(body);
     await addItem(item!);
-    return new Response();
   })
-  .delete('/:id', async (ctx) => {
+  .delete('/:id', async ctx => {
     const id = parseInt(ctx.params.id);
     await removeItem(id);
-    return new Response();
   });

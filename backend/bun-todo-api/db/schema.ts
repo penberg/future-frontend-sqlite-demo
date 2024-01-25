@@ -2,7 +2,7 @@ import { InferModel, sql } from "drizzle-orm";
 import { integer, sqliteTable, text } from "drizzle-orm/sqlite-core";
 
 export const items = sqliteTable("items", {
-  id: integer("id").primaryKey(),
+  id: text("id").primaryKey(),
   title: text("title"),
   completed: integer("completed", { mode: 'boolean' }),
 });
