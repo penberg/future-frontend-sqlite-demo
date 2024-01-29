@@ -4,8 +4,16 @@ import { drizzle } from 'drizzle-orm/libsql';
 import { eq } from 'drizzle-orm';
 import { createClient } from '@libsql/client';
 import { type Item, type InsertItem, items } from '../../../db/schema';
+import dotenv from 'dotenv';
 
-const client = createClient({ url: 'file:todo.db' });
+dotenv.config();
+
+console.log("DATABASE_URL: " + process.env.DATABASE_URL);
+
+const client = createClient({
+  url: process.env.DATABASE_URL!,
+  authToken: process.env.DATABASE_AUTH_TOKEN,
+});
 
 const db = drizzle(client);
 

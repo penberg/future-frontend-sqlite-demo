@@ -47,3 +47,11 @@ You can also inspect the database with Drizzle studio:
 ```console
 bun x drizzle-kit studio
 ```
+
+## Import SQLite database to Turso
+
+```console
+turso db create --from-file todo.db todo
+echo "DATABASE_URL=$(turso db show --url todo)" > .env.remote
+echo "DATABASE_AUTH_TOKEN=$(turso db tokens create todo)" >> .env.remote
+```
