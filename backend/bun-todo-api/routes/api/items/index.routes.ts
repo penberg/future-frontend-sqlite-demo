@@ -12,8 +12,14 @@ console.log("DATABASE_URL: " + process.env.DATABASE_URL);
 
 const client = createClient({
   url: process.env.DATABASE_URL!,
+  syncUrl: process.env.SYNC_URL!,
   authToken: process.env.DATABASE_AUTH_TOKEN,
 });
+
+if (process.env.SYNC_URL) {
+  console.log("SYNC_URL: " + process.env.SYNC_URL);
+  client.sync();
+}
 
 const db = drizzle(client);
 

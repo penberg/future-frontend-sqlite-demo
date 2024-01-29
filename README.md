@@ -50,8 +50,25 @@ bun x drizzle-kit studio
 
 ## Import SQLite database to Turso
 
+You can import a SQLite database file with the following command:
+
 ```console
 turso db create --from-file todo.db todo
+```
+
+Run the following to generate configuration to access a remote Turso database:
+
+```console
 echo "DATABASE_URL=$(turso db show --url todo)" > .env.remote
 echo "DATABASE_AUTH_TOKEN=$(turso db tokens create todo)" >> .env.remote
+cp .env.remote .env
 ```
+
+Run the following to access an embedded database with offline sync:
+
+```console
+echo "DATABASE_URL=file:local.db" > .env.sync
+echo "SYNC_URL=$(turso db show --url todo)" >> .env.sync
+echo "DATABASE_AUTH_TOKEN=$(turso db tokens create todo)" >> .env.sync
+cp .env.sync .env
+``````
