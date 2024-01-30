@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { Input } from "./input";
-
+import { apiBaseUrl }  from "../../settings";
 import { ADD_ITEM } from "../constants";
 
 /* Borrowed from https://github.com/ai/nanoid/blob/3.0.2/non-secure/index.js
@@ -48,7 +48,8 @@ function nanoid(size = 21) {
 export function Header({ mutate }) {
     const addItem = useCallback(async (title) => {
         const item = { id: nanoid(), title: title, completed: false };
-        await fetch("http://localhost:3000/api/items", {
+        const url = apiBaseUrl + "/api/items";
+        await fetch(url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

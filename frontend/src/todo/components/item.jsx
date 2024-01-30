@@ -3,6 +3,8 @@ import classnames from "classnames";
 
 import { Input } from "./input";
 
+import { apiBaseUrl } from "../../settings";
+
 import { TOGGLE_ITEM, REMOVE_ITEM, UPDATE_ITEM } from "../constants";
 
 export const Item = memo(function Item({ todo, mutate, index }) {
@@ -13,7 +15,8 @@ export const Item = memo(function Item({ todo, mutate, index }) {
         // TODO: dispatch({ type: TOGGLE_ITEM, payload: { id } }), [dispatch]
     });
     const removeItem = useCallback(async () => {
-        await fetch(`http://localhost:3000/api/items/${id}`, { method: "DELETE" });
+        const url = apiBaseUrl + "/api/items/" + id;
+        await fetch(url, { method: "DELETE" });
         mutate((prev) => prev.filter((todo) => todo.id !== id), false);
     });
     const updateItem = useCallback((id, title) => {

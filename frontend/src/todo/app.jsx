@@ -2,15 +2,16 @@ import useSWR from "swr";
 import { Header } from "./components/header";
 import { Main } from "./components/main";
 import { Footer } from "./components/footer";
-
-import { LOAD_ITEMS } from "./constants";
+import { apiBaseUrl } from "../settings";
 
 import "./app.css";
 
 export function App() {
     const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
-    const { data, error, mutate } = useSWR('http://localhost:3000/api/items', fetcher);
+    const url = apiBaseUrl + '/api/items';
+
+    const { data, error, mutate } = useSWR(url, fetcher);
 
     if (error) return <div>Failed to load</div>
 
