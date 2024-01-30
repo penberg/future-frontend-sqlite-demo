@@ -4,7 +4,7 @@ This is the source repository for the SQLite demo app presented at [Future Front
 
 ## Frontend
 
-The app in [frontend](./frontend) directory is the frontend for a Todo app, forked from https://github.com/tastejs/todomvc/tree/master/examples/react
+The app in [frontend/react](./frontend/react) directory is the frontend for a Todo app, forked from https://github.com/tastejs/todomvc/tree/master/examples/react
 
 To get started, install dependencies:
 
