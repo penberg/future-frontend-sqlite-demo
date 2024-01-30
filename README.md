@@ -22,7 +22,7 @@ Open the application in [your browser](http://127.0.0.1:7002).
 
 ## Backend (Bun)
 
-The app in [backend/bun-todo-api](./backend/bun-todo-api) directory is a Bun/Stric-based API server.
+The app in [backend/bun-todo-api](./backend/bun-todo-api) directory is an API server implemented with Bun and Stric.
 
 First generate migrations:
 
@@ -46,6 +46,44 @@ You can also inspect the database with Drizzle studio:
 
 ```console
 bun x drizzle-kit studio
+```
+
+## Backend (Cloudflare Workers)
+
+The app in [backend/workers-todo-api](./backend/workers-todo-api) directory an API server implemented with Cloudflare Workers.
+
+Start the server locally:
+
+```console
+npm start
+```
+
+To deploy it on Workers platform, you first configure database access credentials.
+
+Update the `wrangler.toml` with a `DATABASE_URL` variable:
+
+```console
+[vars]
+DATABASE_URL = "<YOUR_DATABASE_URL>"
+```
+
+Then configure database access token in `.dev.vars`:
+
+```
+.dev.vars
+DATABASE_AUTH_TOKEN="<YOUR_AUTH_TOKEN>"
+```
+
+and configure it as a secret:
+
+```console
+npx wrangler secret put DATABASE_AUTH_TOKEN
+```
+
+Finally, deploy to the Workers platform:
+
+```console
+npm run deploy
 ```
 
 ## Import SQLite database to Turso

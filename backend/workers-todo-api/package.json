@@ -1,0 +1,22 @@
+{
+  "name": "workers-todo-api",
+  "version": "0.0.0",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20240129.0",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.2",
+    "wrangler": "3.25.0"
+  },
+  "private": true,
+  "scripts": {
+    "start": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "test": "vitest"
+  },
+  "dependencies": {
+    "@libsql/client": "^0.4.2",
+    "drizzle-kit": "^0.20.13",
+    "drizzle-orm": "^0.29.3",
+    "itty-router": "^4.0.27"
+  }
+}

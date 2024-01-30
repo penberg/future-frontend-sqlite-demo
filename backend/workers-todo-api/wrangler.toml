@@ -1,0 +1,6 @@
+name = "workers-todo-api"
+main = "src/index.ts"
+compatibility_date = "2024-01-30"
+
+[vars]
+DATABASE_URL = "libsql://todo-penberg.turso.io"
