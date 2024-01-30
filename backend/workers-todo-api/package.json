@@ -14,7 +14,7 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@libsql/client": "^0.4.2",
+    "@libsql/client": "^0.4.3",
     "drizzle-kit": "^0.20.13",
     "drizzle-orm": "^0.29.3",
     "itty-router": "^4.0.27"

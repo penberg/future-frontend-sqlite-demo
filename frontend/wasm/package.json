@@ -31,7 +31,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "@libsql/client-wasm": "^0.4.2",
+    "@libsql/client-wasm": "^0.4.3",
     "classnames": "^2.2.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
