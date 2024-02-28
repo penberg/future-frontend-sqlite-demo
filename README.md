@@ -2,6 +2,54 @@
 
 This is the source repository for the SQLite demo app presented at [Future Frontend January 2024 meetup](https://meetabit.com/events/future-frontend-january-2024/).
 
+## Backend (Bun)
+
+The app in [backend/bun-todo-api](./backend/bun-todo-api) directory is an API server implemented with Bun and Stric.
+
+First install dependencies:
+
+```console
+bun i
+```
+
+Configure local SQLite:
+
+```console
+echo "DATABASE_URL=file:todo.db" > .env
+```
+
+Generate migrations:
+
+```console
+bun x drizzle-kit generate:sqlite --out migrations --schema db/schema.ts
+```
+
+Push the migrations to the database:
+
+```console
+bun x drizzle-kit push:sqlite
+```
+
+Inspect the database with Drizzle studio:
+
+```console
+bun x drizzle-kit studio
+```
+
+Or in the shell:
+
+```console
+sqlite3 todo.db
+```
+
+And start the server:
+
+```console
+bun run index.ts
+```
+
+The REST API server is now running on `http://localhost:3000`.
+
 ## Frontend
 
 The app in [frontend/react](./frontend/react) directory is the frontend for a Todo app, forked from https://github.com/tastejs/todomvc/tree/master/examples/react
@@ -20,33 +68,30 @@ bun run serve
 
 Open the application in [your browser](http://127.0.0.1:7002).
 
-## Backend (Bun)
+## Moving your database to Turso
 
-The app in [backend/bun-todo-api](./backend/bun-todo-api) directory is an API server implemented with Bun and Stric.
-
-First generate migrations:
+You can import a SQLite database file with the following command:
 
 ```console
-bun x drizzle-kit generate:sqlite --out migrations --schema db/schema.ts
+turso db create --from-file todo.db todo
 ```
 
-Then push migrations to database:
+Run the following to generate configuration to access a remote Turso database:
 
 ```console
-bun x drizzle-kit push:sqlite
+echo "DATABASE_URL=$(turso db show --url todo)" > .env.remote
+echo "DATABASE_AUTH_TOKEN=$(turso db tokens create todo)" >> .env.remote
+cp .env.remote .env
 ```
 
-And start the server:
+Run the following to access an embedded database with offline sync:
 
 ```console
-bun --watch run index.ts
-```
-
-You can also inspect the database with Drizzle studio:
-
-```console
-bun x drizzle-kit studio
-```
+echo "DATABASE_URL=file:local.db" > .env.sync
+echo "SYNC_URL=$(turso db show --url todo)" >> .env.sync
+echo "DATABASE_AUTH_TOKEN=$(turso db tokens create todo)" >> .env.sync
+cp .env.sync .env
+``````
 
 ## Backend (Cloudflare Workers)
 
@@ -85,28 +130,3 @@ Finally, deploy to the Workers platform:
 ```console
 npm run deploy
 ```
-
-## Import SQLite database to Turso
-
-You can import a SQLite database file with the following command:
-
-```console
-turso db create --from-file todo.db todo
-```
-
-Run the following to generate configuration to access a remote Turso database:
-
-```console
-echo "DATABASE_URL=$(turso db show --url todo)" > .env.remote
-echo "DATABASE_AUTH_TOKEN=$(turso db tokens create todo)" >> .env.remote
-cp .env.remote .env
-```
-
-Run the following to access an embedded database with offline sync:
-
-```console
-echo "DATABASE_URL=file:local.db" > .env.sync
-echo "SYNC_URL=$(turso db show --url todo)" >> .env.sync
-echo "DATABASE_AUTH_TOKEN=$(turso db tokens create todo)" >> .env.sync
-cp .env.sync .env
-``````
